@@ -19,6 +19,7 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 	var/can_rubberify = TRUE
+	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE //very protecc too
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -34,6 +35,8 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 /obj/item/storage/toolbox/update_icon()
 	..()
 	cut_overlays()
+	if(blood_DNA && blood_DNA.len)
+		add_blood_overlay()
 	if(has_latches)
 		var/icon/I = icon('icons/obj/storage.dmi', latches)
 		add_overlay(I)
